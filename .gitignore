@@ -21,3 +21,16 @@
 *.i*86
 *.x86_64
 *.hex
+
+#avr studio files
+*.d
+*.lss
+*.mk
+*.eep
+*.map
+*.srec
+Makefile
+
+#vim files
+*.swo
+
