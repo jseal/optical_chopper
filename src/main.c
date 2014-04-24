@@ -1,5 +1,5 @@
 #include "Configuration.h"
-#include "PushButtonControls.h"
+#include "Chopper.h"
 
 int main (void)
 {
@@ -11,6 +11,12 @@ int main (void)
     // Setup interrupts
     ConfigureInterrupts();
     
+    // Initialize LCD
+    InitializeSpi();
+    
     while(true);
- 
-}
+   
+}    
+    
+
+
