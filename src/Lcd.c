@@ -1,3 +1,4 @@
+#include <string.h>
 #include "Lcd.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -128,7 +129,7 @@ void LcdEnableDisplay( SPI_t* device, int state )
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-void LcdBacklight( SPI_t* device, int state )
+void LcdBacklight( SPI_t* device, bool state )
 {
     int buffer = 0x20;
 
@@ -195,36 +196,34 @@ void InitializeSpi(void)
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+void LcdShowStartupScreen(SPI_t* device, const char* lines[LCD_COLS])
+{
+	LcdBacklight(device, true);
+	for(uint8_t idx=0; idx<LCD_ROWS; ++idx)
+	{
+		const char* line = lines[idx]; 
+		LcdWriteData(device, line, strlen(line), idx+1, 1);
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 void LcdWriteNumber( SPI_t* device, int row, int column, int size, int value )
 {
-    char buffer[255];
-    sprintf( buffer, "%02u", value );
-    LcdWriteData(device, buffer, size, row, column );
+	char buffer[255];
+	sprintf( buffer, "%02u", value );
+	LcdWriteData(device, buffer, size, row, column );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-void SetLaserRepRate( SPI_t* device, int value )
-{
-    LcdWriteNumber( device, 1, 18, 2, value );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-void SetClockFrequency( SPI_t* device, int value )
-{
-    LcdWriteNumber( device, 2, 18, 2, value );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-void WriteVersionInfoToEeprom( SPI_t* device)
-{
-    // NOTE: The following commands will write permanent startup
-    // data to the screen. This should be in a separate program
-    // altogether.
-    LcdStartup( device, "Arecibo Observatory ", 20, 1);
-    LcdStartup( device, SOFTWARE_VERSION, 20, 2);
-    LcdStartup( device, "                    ", 20, 3);
-    LcdStartup( device, "                    ", 20, 4);
-}
+//void WriteVersionInfoToEeprom( SPI_t* device)
+//{
+//	// NOTE: The following commands will write permanent startup
+//	// data to the screen. This should be in a separate program
+//	// altogether.
+//	LcdStartup( device, "Arecibo Observatory ", 20, 1);
+//	LcdStartup( device, SOFTWARE_VERSION, 20, 2);
+//	LcdStartup( device, "                    ", 20, 3);
+//	LcdStartup( device, "                    ", 20, 4);
+//}
