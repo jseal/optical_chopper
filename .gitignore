@@ -33,4 +33,5 @@ Makefile
 
 #vim files
 *.swo
+*.swp
 

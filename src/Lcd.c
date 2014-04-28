@@ -215,6 +215,37 @@ void LcdWriteNumber( SPI_t* device, int row, int column, int size, int value )
 	LcdWriteData(device, buffer, size, row, column );
 }
 
+void LcdLoadCustomCharacterSet( SPI_t* device, uint8_t code)
+{
+   LcdWriteByte( device, LCD_SYNC_CMD );
+   LcdWriteByte(device, LCD_CUSTOM_CHAR_SET);
+   LcdWriteByte(device, code);
+}
+
+void LcdWriteLargeTime( SPI_t* device, uint8_t hours, uint8_t minutes, uint8_t seconds)
+{
+   char buffer[20];
+   snprintf(buffer, 20, "%02u:%02u:%02u", hours,minutes,seconds);
+
+   // load large character set
+   LcdLoadCustomCharacterSet(device, 0x03);
+   LcdWriteByte( device, LCD_SYNC_CMD );
+   LcdWriteByte(device, LCD_LARGE_MODE);
+   LcdWriteByte(device,0x0C);
+   LcdWriteByte(device,0x09);
+   LcdWriteByte(device,buffer[0]);
+   LcdWriteByte(device,0x09);
+   LcdWriteByte(device,buffer[1]);
+   LcdWriteByte(device,buffer[2]);
+   LcdWriteByte(device,buffer[3]);
+   LcdWriteByte(device,0x09);
+   LcdWriteByte(device,buffer[4]);
+   LcdWriteByte(device,buffer[5]);
+   LcdWriteByte(device,buffer[6]);
+   LcdWriteByte(device,0x09);
+   LcdWriteByte(device,buffer[7]);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 //void WriteVersionInfoToEeprom( SPI_t* device)

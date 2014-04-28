@@ -17,7 +17,7 @@ const char* STARTUP_DISPLAY_LINES[] =
 {
 	"   Optical Chopper  " ,
 	"Arecibo Observatory ",
-	"Ver : 1.0.24Apr2014 ",
+	"Ver : 1.0.27Apr2014 ",
 	" Press SW0 To Start"
 };
 

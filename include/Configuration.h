@@ -13,6 +13,10 @@
 #include <asf.h>
 #include <util/delay.h>
 
+#define CHOPPER_DAC DACA
+#define CHOPPER_DAC_CHANNEL DAC_CH0
+#define DAC_CONVERSION_RATE 500
+
 // Clock initialization function
 void InitializeClock(void);
 
@@ -25,8 +29,8 @@ const char* STARTUP_DISPLAY_LINES[];
 typedef enum {
     PROGRAM_LASER_REP_RATE = 1,
     PROGRAM_MULTIPLIER = 2,
-    RUN = 3,
-    STOP = 4
+    STABILIZE_CHOPPER = 3,
+    STOP = 4,
 } ProgramModeEnum_t;
 
 const static uint8_t NUM_LEDS = 8;

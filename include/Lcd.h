@@ -19,14 +19,15 @@
 #define SOFTWARE_VERSION      "VERSION: 1.0_23APR14"
 
 static const int CTRL_DELAY_US   = 500;
-static const int LCD_WRITE_CMD   = 0x80;
-static const int LCD_POS_CMD     = 0x8A;
-static const int LCD_SYNC_CMD    = 0xF5;
-static const int LCD_STARTUP_CMD = 0x90;
-static const int LCD_STATUS_CMD  = 0xD0;
-static const int LCD_MAX_COLS    = 20;
-
-static const int SPIF_BIT = 0x80;
+static const uint8_t LCD_WRITE_CMD   = 0x80;
+static const uint8_t LCD_POS_CMD     = 0x8A;
+static const uint8_t LCD_SYNC_CMD    = 0xF5;
+static const uint8_t LCD_STARTUP_CMD = 0x90;
+static const uint8_t LCD_STATUS_CMD  = 0xD0;
+static const uint8_t LCD_MAX_COLS    = 20;
+static const uint8_t LCD_LARGE_MODE  = 0x8F;
+static const uint8_t LCD_CUSTOM_CHAR_SET  = 0x8E;
+static const uint8_t SPIF_BIT = 0x80;
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -80,5 +81,13 @@ void LcdWriteNumber( SPI_t* device, int row, int column, int size, int value );
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 void WriteVersionInfoToEeprom( SPI_t* device);
+    
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+void LcdLoadCustomCharacterSet( SPI_t* device, uint8_t code);
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+void LcdWriteLargeTime( SPI_t* device, uint8_t hours, uint8_t minutes, uint8_t seconds);
 
 #endif

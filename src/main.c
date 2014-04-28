@@ -1,5 +1,7 @@
 #include "Configuration.h"
 #include "Chopper.h"
+#include "Dac.h"
+
 
 int main (void)
 {
@@ -25,9 +27,12 @@ int main (void)
     
     _delay_ms(SHOW_SCREEN_DELAY_MSEC);
     
-    while(true);
+    /*evsys_init();*/
+    /*tc_init();*/
+    dac_init();
    
+    while(true);
 }    
-    
+
 
 

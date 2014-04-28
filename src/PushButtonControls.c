@@ -16,6 +16,9 @@
 // and LCD backlight controls
 ISR(PORTD_INT0_vect)
 {
+   // debounce switch
+   _delay_ms(500);
+
 	// SW3 --> SWITCH_FOUR. Toggles LCD backlight.
 	if(PORTD.IN == SWITCH_FOUR)
 	{
@@ -29,6 +32,12 @@ ISR(PORTD_INT0_vect)
 
 	// increment the global state counter.
 	gProgramMode = (ProgramModeEnum_t)(++gStateCounter);
+
+   if(gProgramMode == STABILIZE_CHOPPER)
+   {
+          StabilizeChopper();
+      return;
+   }
 
 	// if we reach the last state, start over.
 	if(gProgramMode == STOP)
